@@ -7,21 +7,23 @@ using System.Threading.Tasks;
 namespace Tur_Baseret_2D_Spil
 {
     // Klasse til at repræsentere verdenen
-    abstract class World
+    public class World
     {
-        // Liste over creatures i verdenen
-        public List<Creature> Creatures { get; }
+        public string Name { get; set; }
 
-        // Constructor
+        private static World _instance = new World();
+
+        public static World Instance = _instance;
+
+        public int MaxX;
+        public int MaxY;
+
         public World()
         {
-            Creatures = new List<Creature>();
+            MaxX = 32;
+            MaxY = 32;
         }
 
-        // Metode til at tilføje en creature til verdenen
-        public void AddCreature(Creature creature)
-        {
-            Creatures.Add(creature);
-        }
+
     }
 }

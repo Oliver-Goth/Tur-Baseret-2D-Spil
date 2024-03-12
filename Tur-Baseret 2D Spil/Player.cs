@@ -9,7 +9,17 @@ namespace Tur_Baseret_2D_Spil
     // Klasse til at repræsentere Player, der nedarver fra Creature
     abstract class Player : Creature
     {
-        // Constructor
-        public Player(string name, int health = 150) : base(name, health) { }
+        //Constructor
+        public Player(string name, int health, int level) : base(name, health, level)
+        {
+            Name = name;
+            Health = health;
+            Level = level;
+        }
+
+        public override string ToString()
+        {
+            return $"Name: {Name}, Health: {Health}, Level: {Level}";
+        }
     }
 }

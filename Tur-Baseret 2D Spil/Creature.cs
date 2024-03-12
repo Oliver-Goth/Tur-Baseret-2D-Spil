@@ -9,51 +9,21 @@ namespace Tur_Baseret_2D_Spil
     // Klasse til at repræsentere en creatures
     abstract class Creature
     {
-        public string Name { get; }
+        public string Name { get; set; }
         public int Health { get; set; }
-        public Armor Armor { get; set; }
-        public Weapon Weapon { get; set; }
+        public int Level { get; set; }
 
         //Constructor
-        public Creature(string name, int health = 100)
+        public Creature(string name, int health, int level)
         {
             Name = name;
             Health = health;
+            Level = level;
         }
 
-        // Metode til at nogle et rustning
-        public void EquipArmor(Armor armor)
+        public override string ToString()
         {
-            Armor = armor;
-        }
-
-        // Metode til at nogle et våben
-        public void EquipWeapon(Weapon weapon)
-        {
-            Weapon = weapon;
-        }
-
-        // Metode til at angribe
-        public void Attack(Creature target)
-        {
-            if (Weapon != null)
-            {
-                int damage = Weapon.Attack(); // Beregn skade
-                if (target.Armor != null) // Hvis målet har rustning
-                {
-                    damage -= target.Armor.Defense; // Træk rustningens forsvar fra skaden
-                }
-                target.Health -= damage; // Anvend skaden på målets helbred
-                Console.WriteLine($"{Name} attacks {target.Name} for {damage} damage."); // Udskriv angreb
-                if (target.Health <= 0) // Hvis målet er dødt
-                {
-                    Console.WriteLine($"{target.Name} is defeated!"); // Udskriv at målet er besejret
-                }
-            }
-            else // Hvis skabningen ikke har et våben
-            {
-                Console.WriteLine($"{Name} has no weapon to attack with!"); // Udskriv at skabningen ikke har et våben
-            }
+            return $"Name: {Name}, Health: {Health}, Level: {Level}";
         }
     }
 }

@@ -7,20 +7,23 @@ using System.Threading.Tasks;
 namespace Tur_Baseret_2D_Spil
 {
     // Klasse til at repræsentere et våben, der nedarver fra Item
-    abstract class Weapon : Item
+    internal class Weapon : WearableItem
     {
-        public int Damage { get; } // Skaden, som våbnet gør
+        public int Damage { get; set; }
+        public int Range { get; set; }
 
         //Constructor
-        public Weapon(string name, int damage = 0) : base(name)
+        public Weapon(string name, int damage, int durability, int range, string description) : base(name, 100, 1,description)
         {
+            Name = name;
             Damage = damage;
+            Durability = durability;
+            Range = range;
         }
 
-        // Metode til at udføre et angreb og returnere skaden
-        public int Attack()
+        public override string ToString()
         {
-            return Damage;
+            return $"Name: {Name}, Damage: {Damage}, Durability: {Durability},  Range: {Range}";
         }
     }
 }
