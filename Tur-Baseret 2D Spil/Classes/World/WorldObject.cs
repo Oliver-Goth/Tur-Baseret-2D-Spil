@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tur_Baseret_2D_Spil
+namespace Tur_Baseret_2D_Spil.Classes.World
 {
     internal class WorldObject
     {

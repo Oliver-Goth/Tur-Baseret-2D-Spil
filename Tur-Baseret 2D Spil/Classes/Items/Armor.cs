@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace Tur_Baseret_2D_Spil
+namespace Tur_Baseret_2D_Spil.Classes.Items
 {
     // Klasse til at repræsentere en rustning, der nedarver fra Item
     internal class Armor : WearableItem

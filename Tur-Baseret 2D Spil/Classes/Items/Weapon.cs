@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tur_Baseret_2D_Spil
+namespace Tur_Baseret_2D_Spil.Classes.Items
 {
     // Klasse til at repræsentere et våben, der nedarver fra Item
     internal class Weapon : WearableItem
@@ -13,7 +13,7 @@ namespace Tur_Baseret_2D_Spil
         public int Range { get; set; }
 
         //Constructor
-        public Weapon(string name, int damage, int durability, int range, string description) : base(name, 100, 1,description)
+        public Weapon(string name, int damage, int durability, int range, string description) : base(name, 100, 1, description)
         {
             Name = name;
             Damage = damage;
