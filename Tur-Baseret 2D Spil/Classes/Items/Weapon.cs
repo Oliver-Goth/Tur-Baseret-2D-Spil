@@ -13,7 +13,7 @@ namespace Tur_Baseret_2D_Spil.Classes.Items
         public int Range { get; set; }
 
         //Constructor
-        public Weapon(string name, int damage, int durability, int range, string description) : base(name, 100, 1, description)
+        public Weapon(string name, int damage, int durability, int range, string description) : base(name, 100, 2, description)
         {
             Name = name;
             Damage = damage;
@@ -23,7 +23,13 @@ namespace Tur_Baseret_2D_Spil.Classes.Items
 
         public override string ToString()
         {
-            return $"Name: {Name}, Damage: {Damage}, Durability: {Durability},  Range: {Range}";
+            return $"[*****************Weapon: {Name}*****************]" + "/n" +
+                   $"[**   Name              is     {Name}          **]" + "/n" +
+                   $"[**   Damage            is     {Damage}        **]" + "/n" +
+                   $"[**   Durability        is     {Durability}    **]" + "/n" +
+                   $"[**   Range             is     {Range}         **]" + "/n" +
+                   $"[**   Describtion              {Description}   **]" + "/n" +
+                   $"[************************************************]";
         }
     }
 }

@@ -10,6 +10,9 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
     abstract class Player : Creature
     {
         // Constructor
-        public Player(string name, int health = 150) : base(name, health) { }
+        public Player(string name, int health) : base(name, health, 1) 
+        {
+
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace Tur_Baseret_2D_Spil.Classes.Items
 
 
         //Constructor
-        public Armor(string name, int defence, int durability, string description) : base(name, 100, 2, description)
+        public Armor(string name, int defence, int durability, string description) : base(name, 100, 1, description)
         {
             Name = name;
             Defence = defence;
@@ -24,7 +24,12 @@ namespace Tur_Baseret_2D_Spil.Classes.Items
 
         public override string ToString()
         {
-            return $"Name: {Name}, Defence: {Defence}";
+            return $"[******************Armor: {Name}*****************]" + "/n" +
+                   $"[** Name                is     {Name}          **]" + "/n" +
+                   $"[** Defence             is     {Defence}       **]" + "/n" +
+                   $"[** Durability          is     {Durability}    **]" + "/n" +
+                   $"[** Describtion                {Description}   **]" + "/n" +
+                   $"[************************************************]";
         }
     }
 }
