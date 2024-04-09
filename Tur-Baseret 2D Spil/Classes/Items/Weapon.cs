@@ -16,10 +16,7 @@ namespace Tur_Baseret_2D_Spil.Classes.Items
         //Constructor
         public Weapon(string name, int durability, int range, string description, Damage.Damage damage) : base(name, 100, 2, description)
         {
-            Name = name;
             DamageGive = damage;
-            Durability = durability;
-            Range = range;
         }
 
     }

@@ -30,6 +30,9 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
         // Used to log trace/logging
         public IGameLogging GameLogging { get; protected set; }
 
+        // Used to generate random numbers, in inherited classes
+        protected Random RandomGenerator = new Random();
+
         // Returns true, if a creature is dead
         public bool IsDead
         {
@@ -40,7 +43,14 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
         public Creature(Position position, int healthPoints, string name, List<WearableItem> carriedLoot, IGameLogging gameLogging)
         {
             Position = position;
-            Loot = carriedLoot;
+            if (carriedLoot != null)
+            {
+                Loot = carriedLoot;
+            }
+            else
+            {
+                Loot = null;
+            }
             Health = healthPoints;
             Name = name;
             GameLogging = gameLogging;

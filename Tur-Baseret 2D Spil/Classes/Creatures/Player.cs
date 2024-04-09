@@ -21,6 +21,12 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
         public List<WearableItem> Inventory { get; }
         public IState State { get; private set; }
         private IGameLogging GameLogging { set; get; }
+        // The equipped defense item a player, CAN have
+        public Armor? EquippedArmor { get; private set; } = null;
+        // The equipped offensive item a player, CAN have
+        public Weapon? EquippedWeapon { get; private set; } = null;
+        // Used to generate the possible damage
+        private Random RandomGenerator = new Random();
 
         public bool IsPoisoned
         {
@@ -119,6 +125,34 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Equips an offensive item
+        /// If an item is already equipped, the previous item gets put in the inventory
+        /// </summary>
+        /// <param name="item">The defensive item to be equipped</param>
+        public void EquipDefensive(Armor item)
+        {
+            if (EquippedArmor != null)
+            {
+                AddToInventory(EquippedArmor);
+            }
+            EquippedArmor = item;
+        }
+
+        /// <summary>
+        /// Equips an offensive item
+        /// If an item is already equipped, the previous item gets put in the inventory
+        /// </summary>
+        /// <param name="item">The offensive item to be equipped</param>
+        public void EquipWeapon(Weapon item)
+        {
+            if (EquippedWeapon != null)
+            {
+                AddToInventory(EquippedWeapon);
+            }
+            EquippedWeapon = item;
         }
     }
 }

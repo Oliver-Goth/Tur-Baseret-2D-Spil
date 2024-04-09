@@ -21,7 +21,10 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
 
         public Goblin CreateMinotaur(Position position, int healthPoints, List<WearableItem> loot, string name = "Goblin")
         {
-            return new Goblin(position, healthPoints, name, loot, GameLogging);
+            Goblin goblin = new Goblin(position, healthPoints, name, GameLogging, loot);
+            GameLogging.WriteInformationToText("Goblin created: " + name);
+            World.World.Instance.AddToWorld(goblin);
+            return goblin;
         }
     }
 }
