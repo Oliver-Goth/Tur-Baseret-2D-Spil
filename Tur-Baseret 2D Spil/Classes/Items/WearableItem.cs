@@ -7,7 +7,7 @@ using Tur_Baseret_2D_Spil.Interface;
 
 namespace Tur_Baseret_2D_Spil.Classes.Items
 {
-    internal class WearableItem : IWearableItem
+    public abstract class WearableItem : IWearableItem
     {
         public string Name { get; set; }
         public int Durability { get; set; }
@@ -20,11 +20,6 @@ namespace Tur_Baseret_2D_Spil.Classes.Items
             Durability = durability;
             Type = type;
             Description = description;
-        }
-
-        public override string ToString()
-        {
-            return $"Name: {Name}, Type: {Type}, Description: {Description}";
         }
     }
 }

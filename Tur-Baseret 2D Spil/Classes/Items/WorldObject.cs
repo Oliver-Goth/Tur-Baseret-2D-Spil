@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tur_Baseret_2D_Spil.Classes.World
+namespace Tur_Baseret_2D_Spil.Classes.Items
 {
-    internal class WorldObject
+    public abstract class WorldObject
     {
         public string Name { get; set; } // Navnet på item
         public bool Lootable { get; } //Kan man samle item op
@@ -20,11 +20,6 @@ namespace Tur_Baseret_2D_Spil.Classes.World
             Lootable = lootable;
             Removable = removable;
             Position = position;
-        }
-
-        public override string ToString()
-        {
-            return $"Name: {Name}, Lootable: {Lootable}, Removable: {Removable}, Position: {Position}";
         }
     }
 }

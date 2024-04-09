@@ -4,22 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tur_Baseret_2D_Spil.Classes.Damage;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Tur_Baseret_2D_Spil.Classes.Items
 {
     // Klasse til at repræsentere en rustning, der nedarver fra Item
-    internal class Armor : WearableItem
+    public abstract class Armor : WearableItem
     {
         public int Defence { get; set; }
-
+        public DamageReduction DamageReduction { get; set; }
 
         //Constructor
-        public Armor(string name, int defence, int durability, string description) : base(name, 100, 1, description)
+        public Armor(string name, int durability, string description, DamageReduction damageReduction) : base(name, 100, 1, description)
         {
-            Name = name;
-            Defence = defence;
-            Durability = durability;
+            DamageReduction = damageReduction;
         }
 
         public override string ToString()

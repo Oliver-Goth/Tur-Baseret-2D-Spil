@@ -5,93 +5,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tur_Baseret_2D_Spil.Interface;
 
 namespace Tur_Baseret_2D_Spil.Classes.Creatures
 {
     // Klasse til at repræsentere en creatures
-    abstract class Creature
+    public abstract class Creature : ITakeDamage, IGiveDamage
     {
+        // The creatures position in the world
         public Position Position { get; protected set; }
+
+        // The name of a creature
         public string Name { get; protected set; }
+
+        // Amount of health points a creature have
         public int Health { get; protected set; }
+
+        // Amount of levels a creature have
         public int Level { get; protected set; }
-        public int WorldLength { get; set; }
-        public int WorldHeight { get; set; }
-        List<Armor> Armor { get; set; }
-        List<Weapon> Weapon { get; set; }
+
+        // Loot, the creature is carrying
+        public List<WearableItem> Loot { get; protected set; }
+
+        // Used to log trace/logging
+        public IGameLogging GameLogging { get; protected set; }
+
+        // Returns true, if a creature is dead
+        public bool IsDead
+        {
+            get { return Health < 0; }
+        }
 
         //Constructor
-        public Creature(string name, int health, int level)
+        public Creature(Position position, int healthPoints, string name, List<WearableItem> carriedLoot, IGameLogging gameLogging)
         {
+            Position = position;
+            Loot = carriedLoot;
+            Health = healthPoints;
             Name = name;
-            Health = health;
-            Level = level;
+            GameLogging = gameLogging;
+            GameLogging.WriteInformationToText("Creature created with name: " + Name);
         }
 
-        public override string ToString()
-        {
-            return $"Name: {Name}, Health: {Health}, Level: {Level}";
-        }
-
-        public void Hit(Creature target)
-        {
-            // Simpel logik for angreb
-            if (Weapon.Count == 0)
-            {
-                // Hvis skabningen ikke har nogen våben, gør ingen skade
-                Console.WriteLine("Denne skabning har ingen våben og kan ikke angribe.");
-                return;
-            }
-
-            // Vælg et tilfældigt angrebsobjekt
-            Random random = new Random();
-            int index = random.Next(Weapon.Count);
-            Weapon selectedAttack = Weapon[index];
-
-            // Beregn afstand mellem de to skabninger
-            double distance = Math.Sqrt(Math.Pow(target.WorldLength - WorldLength, 2) + Math.Pow(target.WorldHeight - WorldHeight, 2));
-
-            // Hvis målet er inden for rækkevidden, udfør angrebet
-            if (distance <= selectedAttack.Range)
-            {
-                target.ReceiveHit(selectedAttack.Durability);
-                Console.WriteLine($"Angrebet med {selectedAttack.Name} ramte!");
-            }
-            else
-            {
-                Console.WriteLine($"Målet er for langt væk for at {selectedAttack.Name} kan ramme.");
-            }
-        }
-
-        public void ReceiveHit(int health)
-        {
-            // Modtag angreb
-            foreach (Armor defense in Armor)
-            {
-                // Reducer skade ved hjælp af Armor
-                health -= defense.Defence;
-            }
-
-            if (health > 0)
-            {
-                Health -= health;
-                Console.WriteLine($"Modtog {health} skade. Livspunkter tilbage: {Health}");
-            }
-            else
-            {
-                Console.WriteLine("Skaden blev blokeret af forsvaret.");
-            }
-
-            // Hvis livspunkter falder til eller under 0, dø
-            if (Health <= 0)
-            {
-                Console.WriteLine("Skabningen er død!");
-            }
-        }
-
-        public void Loot(WorldObject worldObject)
-        {
-            // Implementer logikken for at samle objekter op
-        }
+        /// <summary>
+        /// Calculates how much damage a creature takes
+        /// </summary>
+        /// <param name="taken">Amount of damage the creature taken</param>
+        /// <returns>The actual amount a creature takes</returns>
+        public abstract Damage.Damage TakeDamage(Damage.Damage taken);
+        
+        /// <summary>
+        /// Calculates how much damage a creature gives
+        /// </summary>
+        /// <returns>The amount of damage to give</returns>
+        public abstract Damage.Damage GiveDamage();
     }
 }
