@@ -9,26 +9,17 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Tur_Baseret_2D_Spil.Classes.Items
 {
-    // Klasse til at repræsentere en rustning, der nedarver fra Item
+    // Abstract class representing armor in the game.
     public abstract class Armor : WearableItem
     {
-        public int Defence { get; set; }
+        // Define a property named DamageReduction of type DamageReduction to hold information about how much damage this armor reduces.
         public DamageReduction DamageReduction { get; set; }
 
-        //Constructor
+        // Constructor for the Armor class, which takes parameters to initialize its properties.
         public Armor(string name, int durability, string description, DamageReduction damageReduction) : base(name, 100, 1, description)
         {
+            // Initialize the DamageReduction property of the armor with the provided damage reduction value.
             DamageReduction = damageReduction;
-        }
-
-        public override string ToString()
-        {
-            return $"[******************Armor: {Name}*****************]" + "/n" +
-                   $"[** Name                is     {Name}          **]" + "/n" +
-                   $"[** Defence             is     {Defence}       **]" + "/n" +
-                   $"[** Durability          is     {Durability}    **]" + "/n" +
-                   $"[** Describtion                {Description}   **]" + "/n" +
-                   $"[************************************************]";
         }
     }
 }

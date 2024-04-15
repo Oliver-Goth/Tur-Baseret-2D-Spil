@@ -12,140 +12,136 @@ namespace Tur_Baseret_2D_Spil.Classes.World
 {
     public class World
     {
-        // Name of the world
-        public string Name { get; private set; }
-
-        // The X axis of the world
-        public int WorldLength { get; private set; }
-
-        // Used to parse world length, from config
-        private int length;
-
-        // The Y axis of the world
-        public int WorldHeight { get; private set; }
-
-        // Used to parse world height, from config
-        private int height;
-
-        // Used to handle loading in the config document
-        private XmlDocument? configDocument = new XmlDocument();
-
-        // Used for gamelogging
-        private IGameLogging GameLogging;
-
-        // List for all objects in the world
-        private List<WorldObject> WorldObjectList = new List<WorldObject>();
         
-        // Instance for Singleton
-        private static World? instance;
+        public string Name { get; private set; } // Name of the world
+        public int WorldLength { get; private set; } // The X axis of the world
+        private int length; // Used to parse world length, from config
+        public int WorldHeight { get; private set; } // The Y axis of the world
+        private int height; // Used to parse world height, from config
+        private XmlDocument? configDocument = new XmlDocument(); // Used to handle loading in the config document
+        private IGameLogging GameLogging; // Used for gamelogging
+        private List<WorldObject> WorldObjectList = new List<WorldObject>(); // List for all objects in the world
+        private static World? instance; // Instance for Singleton
 
-        // Getting the instance for Singleton
+        // Provides a singleton instance of the World class.
         public static World Instance
         {
             get
             {
-                if(instance == null)
+                // Check if the instance has been initialized.
+                if (instance == null)
                 {
+                    // If not initialized, create a new instance of the World class.
                     instance = new World();
                 }
+                // Return the instance of the World class.
                 return instance;
             }
         }
 
-        /// <summary>
-        /// Loads values from a config file
-        /// If values aren't found, default values are loaded
-        /// </summary>
+        // Private constructor for the World class.
         private World()
         {
+            // Initialize the GameLogging property with the instance of the game logging system.
             GameLogging = Logging.GameLogging.Instance;
+
+            // Load the WorldConfig.xml document.
             configDocument.Load("WorldConfig.xml");
-            XmlNode? nameNode = configDocument.DocumentElement.SelectSingleNode("Name");
+
+            // Extract and set the name of the world from the configuration file.
+            XmlNode? nameNode = configDocument.DocumentElement?.SelectSingleNode("Name");
             if (nameNode != null)
             {
                 Name = nameNode.InnerText.Trim();
             }
             else
             {
+                // Log a warning if the world name is not found in the configuration file.
                 GameLogging.WriteWarningToText("World name not found");
+
+                // Set a default name for the world.
                 Name = "Standard world";
             }
+            // Log the name of the world.
             GameLogging.WriteInformationToText("World name: " + Name);
 
-            XmlNode lengthNode = configDocument.DocumentElement.SelectSingleNode("Length");
-            if (int.TryParse(lengthNode.InnerText.Trim(), out length))
+            // Extract and set the length of the world from the configuration file.
+            XmlNode lengthNode = configDocument.DocumentElement?.SelectSingleNode("Length");
+            if (int.TryParse(lengthNode?.InnerText.Trim(), out length))
             {
                 WorldLength = length;
             }
             else
             {
-                WorldLength = 10;
+                // Set a default length for the world if it's not found or is invalid.
+                WorldLength = 25;
             }
+            // Log the length of the world.
             GameLogging.WriteInformationToText("World length: " + WorldLength);
 
-            XmlNode heightNode = configDocument.DocumentElement.SelectSingleNode("Height");
-            if (int.TryParse(heightNode.InnerText.Trim(), out height))
+            // Extract and set the height of the world from the configuration file.
+            XmlNode heightNode = configDocument.DocumentElement?.SelectSingleNode("Height");
+            if (int.TryParse(heightNode?.InnerText.Trim(), out height))
             {
                 WorldHeight = height;
             }
             else
             {
-                WorldHeight = 10;
+                // Set a default height for the world if it's not found or is invalid.
+                WorldHeight = 25;
             }
+            // Log the height of the world.
             GameLogging.WriteInformationToText("World height: " + WorldHeight);
         }
 
-        /// <summary>
-        /// Determines if a position is inside the world or not
-        /// </summary>
-        /// <param name="position">The position in the world</param>
-        /// <returns>False if position is not in the world. True if the position is in the world</returns>
+        // Checks if a given position is inside the boundaries of the world.
         public bool InsideWorld(Position position)
         {
-            if(position.X < 0 || position.Y < 0)
+            // Check if the X or Y coordinates are less than zero,
+            // which means the position is outside the world boundaries.
+            if (position.X < 0 || position.Y < 0)
             {
                 return false;
             }
-            if(position.X > WorldLength || position.Y > WorldHeight)
+
+            // Check if the X or Y coordinates are greater than the world length or height,
+            // which means the position is outside the world boundaries.
+            if (position.X > WorldLength || position.Y > WorldHeight)
             {
                 return false;
             }
+
+            // If the position passes both checks, it's inside the world boundaries.
             return true;
         }
 
-        /// <summary>
-        /// Adds an object to the world
-        /// </summary>
-        /// <param name="worldObject">The object to be in the world</param>
+        // Adds a world object to the list of world objects.
         public void AddToWorld(WorldObject worldObject)
         {
+            // Add the specified world object to the list of world objects.
             WorldObjectList.Add(worldObject);
         }
 
-        /// <summary>
-        /// Removes an object from the world
-        /// </summary>
-        /// <param name="worldObject">Objects to be removed from the world</param>
+        // Removes a world object from the list of world objects.
         public void RemoveFormWorld(WorldObject worldObject)
         {
+            // Remove the specified world object from the list of world objects.
             WorldObjectList.Remove(worldObject);
         }
 
-        /// <summary>
-        /// Get a list of creatures in the world
-        /// </summary>
-        /// <returns>A copy of the list, of the creatures</returns>
+        // Retrieves all creatures currently in the world.
         public List<Creature> GetCreaturesInWorld()
         {
+            // Filter the list of world objects to include objects of type Creature,
+            // then convert the filtered objects to a new list.
             return new List<Creature>(WorldObjectList.OfType<Creature>().ToList());
         }
 
-        /// <summary>
-        /// Get a list of world objects in the world
-        /// </summary>
-        /// <returns>A copy of the list, of the world objects</returns>
+        // Retrieves all loot containers currently in the world.
         public List<WorldObject> GetLootContainersInWorld()
         {
+            // Filter the list of world objects to include objects of type WorldObject,
+            // then convert the filtered objects to a new list.
             return new List<WorldObject>(WorldObjectList.OfType<WorldObject>().ToList());
         }
     }

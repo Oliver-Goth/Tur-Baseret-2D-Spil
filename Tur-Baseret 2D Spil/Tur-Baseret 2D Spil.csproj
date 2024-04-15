@@ -7,8 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="GameLib.csproj" />
-  </ItemGroup>
-
 </Project>

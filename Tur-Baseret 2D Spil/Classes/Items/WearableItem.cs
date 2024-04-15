@@ -7,15 +7,18 @@ using Tur_Baseret_2D_Spil.Interface;
 
 namespace Tur_Baseret_2D_Spil.Classes.Items
 {
-    public abstract class WearableItem : IWearableItem
+    // Abstract class representing a wearable item in the game.
+    public abstract class WearableItem
     {
-        public string Name { get; set; }
-        public int Durability { get; set; }
-        public int Type { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; } // The name of the wearable item.
+        public int Durability { get; set; } // The durability of the wearable item.
+        public int Type { get; set; } // The type of the wearable item.
+        public string Description { get; set; } // The description of the wearable item.
 
+        // Constructor for WearableItem.
         public WearableItem(string name, int durability, int type, string description)
         {
+            // Initialize properties with provided values.
             Name = name;
             Durability = durability;
             Type = type;

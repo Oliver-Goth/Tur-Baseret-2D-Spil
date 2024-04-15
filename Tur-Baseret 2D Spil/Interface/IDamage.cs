@@ -7,8 +7,10 @@ using Tur_Baseret_2D_Spil.Classes.Damage;
 
 namespace Tur_Baseret_2D_Spil.Interface
 {
+    // Interface for objects that can give damage.
     public interface IGiveDamage
     {
-        public abstract Damage GiveDamage();
+        // Method signature for giving damage.
+        Damage GiveDamage();
     }
 }
