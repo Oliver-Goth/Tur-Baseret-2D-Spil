@@ -26,10 +26,10 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
         }
 
         // Creates a goblin with the specified parameters.
-        public Goblin CreateGoblin(Position position, int healthPoints, List<WearableItem> loot = null, string name = "Goblin")
+        public Goblin CreateGoblin(Position position, int healthPoints, List<WearableItem>? loot = null, string name = "Goblin")
         {
             // Create a new goblin instance.
-            Goblin goblin = new Goblin(position, healthPoints, name, GameLogging, loot);
+            Goblin goblin = new Goblin(position, healthPoints, name, loot, GameLogging);
 
             // Log that the goblin has been created.
             GameLogging.WriteInformationToText("Goblin created: " + name);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tur_Baseret_2D_Spil.Classes.Items;
 
 namespace Tur_Baseret_2D_Spil.Classes.Damage
 {
@@ -25,6 +26,7 @@ namespace Tur_Baseret_2D_Spil.Classes.Damage
 
             // If the damage reduction value is valid, assign it to the DamageReductionAmount property.
             DamageReductionAmount = damageReduction;
+            
         }
     }
 }

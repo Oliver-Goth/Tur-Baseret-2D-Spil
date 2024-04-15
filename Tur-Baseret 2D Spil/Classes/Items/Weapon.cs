@@ -13,7 +13,7 @@ namespace Tur_Baseret_2D_Spil.Classes.Items
         public Damage.Damage DamageGive { get; private set; }
 
         // Constructor for the weapon class, which takes parameters to initialize its properties.
-        public Weapon(string name, int durability, int range, string description, Damage.Damage damage) : base(name, durability, range, description)
+        public Weapon(string name, double durability, string type, string description, Damage.Damage damage) : base(name, durability, type, description)
         {
             // Initialize the Damageproperty of the weapon with the provided damage value.
             DamageGive = damage;

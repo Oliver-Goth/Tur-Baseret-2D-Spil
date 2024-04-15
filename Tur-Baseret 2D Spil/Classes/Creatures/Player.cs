@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using Tur_Baseret_2D_Spil.Classes.Creatures.States;
+using Tur_Baseret_2D_Spil.Classes.Durabilityase;
 using Tur_Baseret_2D_Spil.Classes.Items;
 using Tur_Baseret_2D_Spil.Classes.World;
 using Tur_Baseret_2D_Spil.Interface;
@@ -82,12 +84,52 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
             return new List<Weapon>(Inventory.OfType<Weapon>().ToList());
         }
 
-        // Calculates the damage taken by the player, considering the current state of the player.
+        // Destroys a wearable item from the player's inventory.
+        public void CheckDurability(WearableItem item)
+        {
+            // Check if the item's durability is less than or equal to zero.
+            if (item.Durability <= 0)
+            {
+                // Remove the item from the player's inventory.
+                Inventory.Remove(item);
+
+                // Log the destruction of the item.
+                GameLogging.WriteInformationToText(item.Name + " was destroyed");
+            }
+        }
+
+        // Calculates the damage taken by the creature, taking into account its current state and equipped armor.
         public Damage.Damage CalculateTakeDamage(Damage.Damage taken)
         {
-            // Returns the calculated damage after considering the player's current state.
-            // Also considering the player's current state.
-            return State.CalculateTakeDamage(taken);
+            // Calculate the damage to take based on the creature's state and equipped armor.
+            Damage.Damage dmgToTake = State.CalculateTakeDamage(taken, armor: EquippedArmor);
+
+            // Reduce the creature's health points by the amount of damage taken.
+            HealthPoints -= dmgToTake.DamageAmount;
+
+            // Return the adjusted damage taken by the creature.
+            return dmgToTake;
+        }
+
+        // Calculates the damage given by the creature, taking into account its current state and equipped weapon.
+        public Damage.Damage CalculateGiveDamage()
+        {
+            // Calculate the damage to give based on the creature's state and equipped weapon.
+            return State.CalculateGiveDamage(new Damage.Damage(RandomGenerator.Next(3, 5)), weapon: EquippedWeapon);
+        }
+
+        // Checks if the player is dead.
+        public void CheckIfDead()
+        {
+            // Check if the creature's health points fall below zero.
+            if (HealthPoints < 0)
+            {
+                // Change the player's state to DeadState.
+                State = new DeadState();
+
+                // Log the death of the player.
+                GameLogging.WriteInformationToText(Name + " was killed");
+            }
         }
 
         // Weakens the player by changing their state to a WeakenedState.

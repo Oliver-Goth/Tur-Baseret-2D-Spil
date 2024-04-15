@@ -26,16 +26,24 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
             get { return Health <= 0; } // Property to check if the creature is dead.
         }
 
-        // Constructor to initialize a creature with provided attributes.
-        public Creature(Position position, string name, int healthPoints, List<WearableItem> carriedLoot, IGameLogging gameLogging)
+
+        // Constructor for the Creature class.
+        public Creature(Position position, string name, int healthPoints, List<WearableItem>? carriedLoot = null, IGameLogging gameLogging)
         {
-            Position = position;
-            // Simplified the initialization of Loot property.
-            Loot = carriedLoot != null ? carriedLoot : new List<WearableItem>();
-            Name = name;
-            Health = healthPoints;
-            GameLogging = gameLogging;
-            GameLogging.WriteInformationToText("Created creature with the name: " + Name);
+            Position = position; // Set the position of the creature.
+            // Set the carried loot of the creature.
+            if (carriedLoot != null)
+            {
+                Loot = carriedLoot;
+            }
+            else
+            {
+                Loot = null;
+            }
+            Name = name; // Set the name of the creature.
+            Health = healthPoints; // Set the health points of the creature.
+            GameLogging = gameLogging; // Set the game logging instance.
+            GameLogging.WriteInformationToText("Creature with the name: " + Name + " was created."); // Log that the creature has been created.
         }
 
         // Abstract method to handle damage taken by the creature.

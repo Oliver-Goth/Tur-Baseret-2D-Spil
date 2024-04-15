@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Tur_Baseret_2D_Spil.Interface;
-using Tur_Baseret_2D_Spil.Classes.Items;
 using Tur_Baseret_2D_Spil.Classes.Creatures;
 
 namespace Tur_Baseret_2D_Spil.Classes.World

@@ -16,7 +16,7 @@ namespace Tur_Baseret_2D_Spil.Classes.Items
         public DamageReduction DamageReduction { get; set; }
 
         // Constructor for the Armor class, which takes parameters to initialize its properties.
-        public Armor(string name, int durability, string description, DamageReduction damageReduction) : base(name, 100, 1, description)
+        public Armor(string name, double durability, string type, string description, DamageReduction damageReduction) : base(name, durability, type, description)
         {
             // Initialize the DamageReduction property of the armor with the provided damage reduction value.
             DamageReduction = damageReduction;

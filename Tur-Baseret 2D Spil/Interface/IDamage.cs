@@ -11,6 +11,6 @@ namespace Tur_Baseret_2D_Spil.Interface
     public interface IGiveDamage
     {
         // Method signature for giving damage.
-        Damage GiveDamage();
+        public abstract Damage GiveDamage();
     }
 }

@@ -11,12 +11,12 @@ namespace Tur_Baseret_2D_Spil.Classes.Items
     public abstract class WearableItem
     {
         public string Name { get; set; } // The name of the wearable item.
-        public int Durability { get; set; } // The durability of the wearable item.
-        public int Type { get; set; } // The type of the wearable item.
+        public double Durability { get; set; } // The durability of the wearable item.
+        public string Type { get; set; } // The type of the wearable item.
         public string Description { get; set; } // The description of the wearable item.
 
         // Constructor for WearableItem.
-        public WearableItem(string name, int durability, int type, string description)
+        public WearableItem(string name, double durability, string type, string description)
         {
             // Initialize properties with provided values.
             Name = name;
