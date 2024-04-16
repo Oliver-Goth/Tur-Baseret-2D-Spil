@@ -9,9 +9,9 @@ using Tur_Baseret_2D_Spil.Interface;
 
 namespace Tur_Baseret_2D_Spil.Classes.Creatures
 {
-    public class Minotaur : Creature
+    public class GenericCreature : Creature
     {
-        public Minotaur(Position position, int health, string name, List<WearableItem>? carriedLoot) : base(position, name, health, carriedLoot)
+        public GenericCreature(Position position, int health, string name, List<WearableItem>? carriedLoot) : base(position, name, health, carriedLoot)
         {
         }
 
@@ -28,7 +28,7 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
 
         public override string ToString()
         {
-            return $"------Creature: Minotaur------ \n" +
+            return $"------Creature: GenericCreature------ \n" +
                 $"Position: {Position}\n" +
                 $"Name: {Name}\n" +
                 $"hp: {Health}\n" +

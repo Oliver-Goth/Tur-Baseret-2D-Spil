@@ -9,20 +9,20 @@ using Tur_Baseret_2D_Spil.Interface;
 
 namespace Tur_Baseret_2D_Spil.Classes.Creatures
 {
-    public class MinotaurFactory
+    public class GenericCreatureFactory
     {
         private static IGameLogging GameLogging { get; set; }
-        public MinotaurFactory(IGameLogging gameLogging)
+        public GenericCreatureFactory(IGameLogging gameLogging)
         {
             GameLogging = gameLogging;
             GameLogging.WriteInformationToText("Factory created");
         }
-        public static Minotaur CreateMinotaur(Position position, int healthPoints, List<WearableItem>? loot = null, string name = "Minotaur")
+        public static GenericCreature CreateCreature(Position position, int healthPoints, List<WearableItem>? loot = null, string name = "Creature")
         {
-            Minotaur minotaur = new Minotaur(position, healthPoints, name, loot);
+            GenericCreature creature = new GenericCreature(position, healthPoints, name, loot);
             GameLogging.WriteInformationToText("Minotaur created: " + name);
-            World.World.Instance.AddToWorld(minotaur);
-            return minotaur;
-        }
+            World.World.Instance.AddToWorld(creature);
+            return creature;
+        }      
     }
 }
