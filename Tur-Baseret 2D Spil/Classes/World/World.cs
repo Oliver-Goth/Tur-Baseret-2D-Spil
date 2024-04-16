@@ -11,7 +11,6 @@ namespace Tur_Baseret_2D_Spil.Classes.World
 {
     public class World
     {
-        
         public string Name { get; private set; } // Name of the world
         public int WorldLength { get; private set; } // The X axis of the world
         private int length; // Used to parse world length, from config
@@ -19,7 +18,7 @@ namespace Tur_Baseret_2D_Spil.Classes.World
         private int height; // Used to parse world height, from config
         private XmlDocument? configDocument = new XmlDocument(); // Used to handle loading in the config document
         private IGameLogging GameLogging; // Used for gamelogging
-        private List<WorldObject> WorldObjectList = new List<WorldObject>(); // List for all objects in the world
+        private List<Creature> WorldObjectList = new List<Creature>(); // List for all objects in the world
         private static World? instance; // Instance for Singleton
 
         // Provides a singleton instance of the World class.
@@ -115,17 +114,17 @@ namespace Tur_Baseret_2D_Spil.Classes.World
         }
 
         // Adds a world object to the list of world objects.
-        public void AddToWorld(WorldObject worldObject)
+        public void AddToWorld(Creature creature)
         {
             // Add the specified world object to the list of world objects.
-            WorldObjectList.Add(worldObject);
+            WorldObjectList.Add(creature);
         }
 
         // Removes a world object from the list of world objects.
-        public void RemoveFormWorld(WorldObject worldObject)
+        public void RemoveFormWorld(Creature creature)
         {
             // Remove the specified world object from the list of world objects.
-            WorldObjectList.Remove(worldObject);
+            WorldObjectList.Remove(creature);
         }
 
         // Retrieves all creatures currently in the world.
@@ -136,8 +135,8 @@ namespace Tur_Baseret_2D_Spil.Classes.World
             return new List<Creature>(WorldObjectList.OfType<Creature>().ToList());
         }
 
-        // Retrieves all loot containers currently in the world.
-        public List<WorldObject> GetLootContainersInWorld()
+        // Retrieves all world objects currently in the world.
+        public List<WorldObject> GetWorldObjectsInWorld()
         {
             // Filter the list of world objects to include objects of type WorldObject,
             // then convert the filtered objects to a new list.

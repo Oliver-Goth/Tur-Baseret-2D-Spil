@@ -18,11 +18,11 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures.States
             if (weapon != null)
             {
                 // If a weapon is equipped, calculate the total damage given by adding the base damage and the weapon's damage, then subtract 5.
-                return new Damage.Damage((given.DamageAmount + weapon.DamageGive.DamageAmount) - 5);
+                return new Damage.Damage((given.DamageAmount + weapon.DamageGive.DamageAmount) * 0.9);
             }
 
             // If no weapon is equipped, subtract 5 from the base damage.
-            return new Damage.Damage(given.DamageAmount - 5);
+            return new Damage.Damage(given.DamageAmount * 0.9);
         }
 
         // Calculates the damage taken by the entity in the weakened state.
@@ -32,11 +32,11 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures.States
             if (armor != null)
             {
                 // If armor is equipped, calculate the total damage taken by subtracting the armor's damage reduction from the base damage, then add 5.
-                return new Damage.Damage((taken.DamageAmount - armor.DamageReduction.DamageReductionAmount) + 5);
+                return new Damage.Damage((taken.DamageAmount - armor.DamageReduction.DamageReductionAmount) * 1.1);
             }
 
             // If no armor is equipped, add 5 to the base damage.
-            return new Damage.Damage(taken.DamageAmount + 5);
+            return new Damage.Damage(taken.DamageAmount * 1.1);
         }
     }
 }

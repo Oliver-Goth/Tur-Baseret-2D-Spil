@@ -18,7 +18,7 @@ namespace Tur_Baseret_2D_Spil.Logging
         private TextWriterTraceListener textWriter;
 
         // Singleton instance of the GameLogging class.
-        private static GameLogging? instance;
+        private static GameLogging? instance = new GameLogging();
 
         // Singleton pattern implementation to ensure only one instance of GameLogging exists.
         public static GameLogging Instance
@@ -61,7 +61,7 @@ namespace Tur_Baseret_2D_Spil.Logging
         // Writes a warning message to the log.
         public void WriteWarningToText(string warning)
         {
-            traceSource.TraceEvent(TraceEventType.Warning, 100, warning);
+            traceSource.TraceEvent(TraceEventType.Warning, 150, warning);
         }
     }
 }

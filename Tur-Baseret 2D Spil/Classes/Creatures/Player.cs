@@ -5,7 +5,6 @@ using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using Tur_Baseret_2D_Spil.Classes.Creatures.States;
-using Tur_Baseret_2D_Spil.Classes.Durabilityase;
 using Tur_Baseret_2D_Spil.Classes.Items;
 using Tur_Baseret_2D_Spil.Classes.World;
 using Tur_Baseret_2D_Spil.Interface;
@@ -43,7 +42,7 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
 
         // Constructor for the Player class.
         // Initializes a new instance of the Player class with the specified parameters.
-        public Player(string name, IGameLogging gameLogging, int healthPoints = 100)
+        public Player(string name, int healthPoints = 100)
         {
             Name = name; // Set the name of the player.
 
@@ -54,10 +53,6 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
             Inventory = new List<WearableItem>(); // Initialize the player's inventory as an empty list.
 
             State = new NormalState(); // Set the initial state of the player to NormalState.
-
-            GameLogging = gameLogging; // Set the game logging object for the player.
-
-            GameLogging.WriteInformationToText(Name + " was created"); // Log the creation of the player.
         }
 
         // Adds a wearable item to the player's inventory.
@@ -84,7 +79,10 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
             return new List<Weapon>(Inventory.OfType<Weapon>().ToList());
         }
 
-        // Destroys a wearable item from the player's inventory.
+        /// <summary>
+        /// Destroys a wearable item from the player's inventory.
+        /// </summary>
+        /// <param name="item"></param>
         public void CheckDurability(WearableItem item)
         {
             // Check if the item's durability is less than or equal to zero.
@@ -111,57 +109,59 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
             return dmgToTake;
         }
 
-        // Calculates the damage given by the creature, taking into account its current state and equipped weapon.
+        /// Calculates the damage given by the creature, taking into account its current state and equipped weapon.
         public Damage.Damage CalculateGiveDamage()
         {
-            // Calculate the damage to give based on the creature's state and equipped weapon.
+            /// Calculate the damage to give based on the creature's state and equipped weapon.
             return State.CalculateGiveDamage(new Damage.Damage(RandomGenerator.Next(3, 5)), weapon: EquippedWeapon);
         }
 
-        // Checks if the player is dead.
+        /// Checks if the player is dead.
         public void CheckIfDead()
         {
-            // Check if the creature's health points fall below zero.
+            /// Check if the creature's health points fall below zero.
             if (HealthPoints < 0)
             {
-                // Change the player's state to DeadState.
+                /// Change the player's state to DeadState.
                 State = new DeadState();
 
-                // Log the death of the player.
+                /// Log the death of the player.
                 GameLogging.WriteInformationToText(Name + " was killed");
             }
         }
 
-        // Weakens the player by changing their state to a WeakenedState.
-        // Updates the player's state and logs the event.
+        /// <summary>
+        /// Weakens the player by changing their state to a WeakenedState.
+        /// Updates the player's state and logs the event.
+        /// </summary>
         public void WeakenPlayer()
         {
-            // Change the player's state to WeakenedState.
+            /// Change the player's state to WeakenedState.
             State = new WeakenedState();
 
-            // Log that the player has been weakened.
+            /// Log that the player has been weakened.
             GameLogging.WriteInformationToText("Player has been weakened");
         }
 
-        // Changes the player by changing their state to a NormalState.
-        // Updates the player's state and logs the event.
+        /// Changes the player by changing their state to a NormalState.
+        /// Updates the player's state and logs the event.
         public void CurePlayer()
         {
-            // Change the player's state to NormalState.
+            /// Change the player's state to NormalState.
             State = new NormalState();
 
-            // Log that the player has been cured.
+            /// Log that the player has been cured.
             GameLogging.WriteInformationToText("Player has been cured");
         }
 
-        // Boosts the player by changing their state to a EnhancedState.
-        // Updates the player's state and logs the event.
+        /// Boosts the player by changing their state to a EnhancedState.
+        /// Updates the player's state and logs the event.
         public void EnhancePlayer()
         {
-            // Change the player's state to EnhancedState.
+            /// Change the player's state to EnhancedState.
             State = new EnhancedState();
 
-            // Log that the player has been boosted.
+            /// Log that the player has been boosted.
             GameLogging.WriteInformationToText("Player has been enhanced");
         }
 

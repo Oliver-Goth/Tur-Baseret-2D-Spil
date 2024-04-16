@@ -28,10 +28,11 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
 
 
         // Constructor for the Creature class.
-        public Creature(Position position, string name, int healthPoints, List<WearableItem>? carriedLoot = null, IGameLogging gameLogging)
+        public Creature(Position position, string name, int health, List<WearableItem>? carriedLoot = null)
         {
             Position = position; // Set the position of the creature.
             // Set the carried loot of the creature.
+        Loot = new List<WearableItem>();
             if (carriedLoot != null)
             {
                 Loot = carriedLoot;
@@ -41,9 +42,7 @@ namespace Tur_Baseret_2D_Spil.Classes.Creatures
                 Loot = null;
             }
             Name = name; // Set the name of the creature.
-            Health = healthPoints; // Set the health points of the creature.
-            GameLogging = gameLogging; // Set the game logging instance.
-            GameLogging.WriteInformationToText("Creature with the name: " + Name + " was created."); // Log that the creature has been created.
+            Health = health; // Set the health points of the creature.
         }
 
         // Abstract method to handle damage taken by the creature.
